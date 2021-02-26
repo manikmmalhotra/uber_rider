@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uber_rider/Screens/loginScreen.dart';
 import 'package:uber_rider/Screens/mainscreen.dart';
+import 'package:uber_rider/Screens/registeratiionScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginScreen(),
+      home: RegisteratiionScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
