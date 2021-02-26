@@ -18,7 +18,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RegisteratiionScreen(),
+      initialRoute: LoginScreen.idScreen,
+      routes:
+      {
+        RegisteratiionScreen.idScreen: (context) => RegisteratiionScreen(),
+        LoginScreen.idScreen: (context) => LoginScreen(),
+        MainScreen.idScreen: (context) => MainScreen(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
