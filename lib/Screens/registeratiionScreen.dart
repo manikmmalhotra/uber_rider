@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uber_rider/Screens/loginScreen.dart';
 import 'package:uber_rider/Screens/mainscreen.dart';
+import 'package:uber_rider/Widgets/progressDialog.dart';
 import 'package:uber_rider/main.dart';
 
 class RegisteratiionScreen extends StatelessWidget {
@@ -121,7 +122,7 @@ class RegisteratiionScreen extends StatelessWidget {
                         else if(phoneTextEditingController.text.isEmpty) {
                           displayToastMessage("Please Enter A phone Number", context);
                         }
-                        else if(nameTextEditingController.text.length < 6){
+                        else if(passwordTextEditingController.text.length < 6){
                           displayToastMessage("Password must be longer than 6 Characters", context);
                         }
                         else {
@@ -153,8 +154,14 @@ class RegisteratiionScreen extends StatelessWidget {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   void registerNewUser(BuildContext context) async
   {
-      final User firebaseUser = (await _firebaseAuth.createUserWithEmailAndPassword(email: emailTextEditingController.text, password: passwordTextEditingController.text).catchError((err){
-        displayToastMessage("Error :" + err.toString(), context);
+
+    showDialog(context: context, barrierDismissible: false,builder: (BuildContext context){
+      ProgressDialog(message: "Registering, Please wait...",);
+    });
+
+    final User firebaseUser = (await _firebaseAuth.createUserWithEmailAndPassword(email: emailTextEditingController.text, password: passwordTextEditingController.text).catchError((err){
+      Navigator.pop(context);
+      displayToastMessage("Error :" + err.toString(), context);
       })).user;
 
       if(firebaseUser != null){
@@ -170,6 +177,7 @@ class RegisteratiionScreen extends StatelessWidget {
         Navigator.pushNamedAndRemoveUntil(context, MainScreen.idScreen, (route) => false);
       }
       else {
+        Navigator.pop(context);
         displayToastMessage("New User Account has not been Created", context);
       }
   }
